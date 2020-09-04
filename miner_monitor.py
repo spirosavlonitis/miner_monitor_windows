@@ -1,28 +1,23 @@
 from time import sleep
+from subprocess import run, call, check_output
+from os import system
 
 
 class MinerMonitor(object):
     """Monitor the status of Ethereum miners"""
-    def __init__(self, check_interval, max_temp, pid_command, mining_command, time_out):
+    def __init__(self, sleep_interval, max_temp, mining_command, time_out):
         super(MinerMonitor, self).__init__()
-        self.check_interval = check_interval
-        self.max_temp = max_temp
-        self.pid_command = pid_command
+        self.sleep_interval = sleep_interval
         self.mining_command = mining_command
         self.time_out = time_out
 
     def monitor_mining(self):
         """Monitor mining status"""
-
         while True:
-            self.check_status()     # check mininer status
-            sleep(self.check_interval)
-
-    def check_status(self):
-        """Check the status of the mining program"""
-        print(self.pid_command)
-
-
+            check_output(self.mining_command, shell=True)
+            sleep(self.sleep_interval)
+        
+            
 if __name__ == '__main__':
-    miner_monitor = MinerMonitor(300, 80, "pid_command", "mining_command", 1200)
+    miner_monitor = MinerMonitor(10, 80, "mine_eth", 1200)
     miner_monitor.monitor_mining()
