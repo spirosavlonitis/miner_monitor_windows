@@ -23,7 +23,7 @@ class TempMonitor(object):
                     subprocess.run(["kill", miner_pid])
                     with open("temperature_status.txt", "w") as f:
                         f.write('1')
-                    print("Miners Over Heated Shutting Them Down")
+                    print("Miners Over Heated Shutting Them Down !")
 
             sleep(self.sleep_interval)
             with open("temperature_status.txt", "w") as f:
@@ -31,5 +31,5 @@ class TempMonitor(object):
 
 
 if __name__ == '__main__':
-    temp_monitor = TempMonitor(max_temp = 71, sleep_interval = 1200, pid_command = 'pidof ethminer')
+    temp_monitor = TempMonitor(max_temp = 80, sleep_interval = 1200, pid_command = 'pidof ethminer')
     temp_monitor.monitor_temp()
