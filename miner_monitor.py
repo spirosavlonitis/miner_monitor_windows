@@ -4,8 +4,8 @@ from os import system
 
 
 class MinerMonitor(object):
-    """Monitor the status of Ethereum miners"""
-    def __init__(self, sleep_interval, max_temp, mining_command, time_out):
+    """Monitor the running status of Ethereum miners"""
+    def __init__(self, max_temp, mining_command, time_out):
         super(MinerMonitor, self).__init__()
         self.sleep_interval = sleep_interval
         self.mining_command = mining_command
@@ -15,9 +15,7 @@ class MinerMonitor(object):
         """Monitor mining status"""
         while True:
             check_output(self.mining_command, shell=True)
-            sleep(self.sleep_interval)
-        
             
 if __name__ == '__main__':
-    miner_monitor = MinerMonitor(10, 80, "mine_eth", 1200)
+    miner_monitor = MinerMonitor(80, "mine_eth", 1200)
     miner_monitor.monitor_mining()
