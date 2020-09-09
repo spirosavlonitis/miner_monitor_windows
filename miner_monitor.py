@@ -5,17 +5,19 @@ from os import system
 
 class MinerMonitor(object):
     """Monitor the running status of Ethereum miners"""
-    def __init__(self, max_temp, mining_command, time_out):
+    def __init__(self, **params):
         super(MinerMonitor, self).__init__()
-        self.sleep_interval = sleep_interval
-        self.mining_command = mining_command
-        self.time_out = time_out
+        self.mining_command = params['mining_command']
+        self.sleep_interval = params['sleep_interval']
+
 
     def monitor_mining(self):
         """Monitor mining status"""
         while True:
             check_output(self.mining_command, shell=True)
+            print("Miners Down waiting %.2f minutes" % (self.sleep_interval / 60))
+            sleep(self.sleep_interval)
             
 if __name__ == '__main__':
-    miner_monitor = MinerMonitor(80, "mine_eth", 1200)
+    miner_monitor = MinerMonitor(mining_command = '.\\eth.bat', sleep_interval = 60)
     miner_monitor.monitor_mining()
